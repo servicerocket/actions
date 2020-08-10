@@ -1,0 +1,65 @@
+name: 'Send Workchat Notification'
+author: rodrigo-nogues
+inputs:
+  api-endpoint:
+    description: 'Workplace Publisher API endpoint.'
+    required: true
+  api-key:
+    description: 'Workplace Publisher API key.'
+    required: true
+  recipient-id:
+    description: 'Workplace ID of the message recipient (add "t_" for groups and make sure bot is a member of the group).'
+    required: true
+  title:
+    description: 'Message title.'
+    required: true
+  subtitle:
+    description: 'Message subtitle.'
+  image-url:
+    description: 'Image URL.'
+  image-aspect-ratio:
+    description: 'Image aspect radio, either "square" or "horizontal".'
+    default: horizontal
+  button-text:
+    description: 'Text of the action button.'
+    default: 'View'
+  button-url:
+    description: 'URL of the action button.'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: >
+        curl "${{ inputs.api-endpoint }}"
+        -X POST
+        -H "Content-Type: application/json"
+        -H "x-api-key: ${{ inputs.api-key }}"
+        -d '{
+            "recipient": {
+              "id": "${{ inputs.recipient-id }}"
+            },
+            "message": {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "generic",
+                  "image_aspect_ratio": "${{ inputs.image-aspect-ratio }}",
+                  "elements": [
+                    {
+                      "title": "${{ inputs.title }}",
+                      "subtitle": "${{ inputs.subtitle }}",
+                      "image_url": "${{ inputs.image-url }}",
+                      "buttons": [
+                        {
+                          "type": "web_url",
+                          "url": "${{ inputs.button-url }}",
+                          "title": "${{ inputs.button-text }}"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }'
+      shell: bash
