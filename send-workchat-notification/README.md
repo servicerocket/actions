@@ -2,7 +2,7 @@
 
 This GitHub action allow sending chat messages using ServiceRocket's Workplace Publisher. 
 
-Messages sent use using Facebook Messenger [Generic Template](https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic) with a single button and an optional image.
+Messages sent use Facebook Messenger [Generic Template](https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic) with a single button and an optional image.
 
 ## Usage
 
