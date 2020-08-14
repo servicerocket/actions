@@ -1,0 +1,51 @@
+name: 'Send Workchat Notification'
+author: rodrigo-nogues
+inputs:
+  api-endpoint:
+    description: 'Workplace Publisher API endpoint.'
+    required: true
+  api-key:
+    description: 'Workplace Publisher API key.'
+    required: true
+  recipient-id:
+    description: 'Workplace ID of the message recipient (add "t_" for groups and make sure bot is a member of the group).'
+    required: true
+  text:
+    description: 'Message text.'
+    required: true
+  button-text:
+    description: 'Text of the action button.'
+    default: 'View'
+  button-url:
+    description: 'URL of the action button.'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: >
+        curl "${{ inputs.api-endpoint }}"
+        -X POST
+        -H "Content-Type: application/json"
+        -H "x-api-key: ${{ inputs.api-key }}"
+        -d '{
+            "recipient": {
+              "id": "${{ inputs.recipient-id }}"
+            },
+            "message": {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "button",
+                  "text": "${{ inputs.text }}",
+                  "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "${{ inputs.button-url }}",
+                      "title": "${{ inputs.button-text }}"
+                    }
+                  ]
+                }
+              }
+            }
+          }'
+      shell: bash
