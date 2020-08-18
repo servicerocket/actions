@@ -22,12 +22,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: >-
-        python3 $GITHUB_ACTION_PATH/wp-notify.py
-          "${{ inputs.api-endpoint }}"
-          "${{ inputs.api-key }}"
-          "${{ inputs.text }}"
-          "${{ inputs.button-url }}"
-          "${{ inputs.button-text }}"
-          ${{ inputs.recipients-id }}
+    - run: python3 $GITHUB_ACTION_PATH/wp-notify.py '${{ inputs.api-endpoint }}' '${{ inputs.api-key }}' '${{ inputs.text }}' '${{ inputs.button-url }}' '${{ inputs.button-text }}' ${{ inputs.recipients-id }}
       shell: bash
