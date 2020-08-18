@@ -1,0 +1,17 @@
+name: 'Notify Job Status to Workchat'
+author: rodrigo-nogues
+inputs:
+  api-endpoint:
+    description: 'Workplace Publisher API endpoint.'
+    required: true
+  api-key:
+    description: 'Workplace Publisher API key.'
+    required: true
+  recipients-id:
+    description: 'Workplace ID of the message recipients separated by spaces (add "t_" for groups and make sure bot is a member of the group).'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: python3 $GITHUB_ACTION_PATH/wp-notify.py '${{ inputs.api-endpoint }}' '${{ inputs.api-key }}' '${{ job.status }}' --commit_message '${{ github.event.head_commit.message }}' ${{ inputs.recipients-id }}
+      shell: bash
