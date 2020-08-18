@@ -15,8 +15,8 @@ Messages sent use Facebook Messenger [Button Template](https://developers.facebo
     api-endpoint: 
     # Workplace Publisher API Key
     api-key: 
-    # Workplace ID of the message recipient
-    recipient-id: 
+    # Workplace ID of the message recipients separated by spaces (add "t_" for chat groups and make sure bot is a member of the group)
+    recipients-id: 
     # Message text (supports [Facebook Messenger formatting](https://www.facebook.com/help/147348452522644))
     text: 
     # Button Text
@@ -30,11 +30,11 @@ Messages sent use Facebook Messenger [Button Template](https://developers.facebo
 
 ```yaml
 - name: Send Workchat notification to 12345678
-  uses: servicerocket/actions/send-workchat-notification-md@12209e7
+  uses: servicerocket/actions/send-workchat-notification-md@1234567
   with:
     api-endpoint: ${{ secrets.WORKPLACE_PUBLISHER_API_ENDPOINT }}
     api-key: ${{ secrets.WORKPLACE_PUBLISHER_API_GATEWAY_KEY }}
-    recipient-id: 12345678
+    recipients-id: "12345678 t_45678901"
     text: "Here is my message!"
     button-url: "https://link.example.com"
 ```
