@@ -1,4 +1,4 @@
-name: 'Send Workchat Notification'
+name: 'Notify Job Status to Workchat'
 author: rodrigo-nogues
 inputs:
   api-endpoint:
@@ -22,5 +22,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: python3 $GITHUB_ACTION_PATH/wp-notify.py '${{ inputs.api-endpoint }}' '${{ inputs.api-key }}' '${{ inputs.text }}' '${{ inputs.button-url }}' '${{ inputs.button-text }}' ${{ inputs.recipients-id }}
+    - run: python3 $GITHUB_ACTION_PATH/wp-notify.py 
+    '${{ inputs.api-endpoint }}' 
+    '${{ inputs.api-key }}' 
+    '${{ inputs.text }}' 
+    '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}' 
+    'View run'
+     ${{ inputs.recipients-id }}
       shell: bash
