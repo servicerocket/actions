@@ -7,8 +7,8 @@ inputs:
   api-key:
     description: 'Workplace Publisher API key.'
     required: true
-  recipients-id:
-    description: 'Workplace ID of the message recipients separated by spaces (add "t_" for groups and make sure bot is a member of the group).'
+  recipient-id:
+    description: 'Workplace ID of the message recipient (add "t_" for groups and make sure bot is a member of the group).'
     required: true
   text:
     description: 'Message text.'
@@ -22,12 +22,30 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: >-
-        python3 ./.github/actions/wp-publisher/wp-notify.py
-          "${{ inputs.api-endpoint }}"
-          "${{ inputs.api-key }}"
-          "${{ inputs.text }}"
-          "${{ inputs.button-url }}"
-          "${{ inputs.button-text }}"
-          ${{ inputs.recipients-id }}
+    - run: >
+        curl "${{ inputs.api-endpoint }}"
+        -X POST
+        -H "Content-Type: application/json"
+        -H "x-api-key: ${{ inputs.api-key }}"
+        -d '{
+            "recipient": {
+              "id": "${{ inputs.recipient-id }}"
+            },
+            "message": {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "button",
+                  "text": "${{ inputs.text }}",
+                  "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "${{ inputs.button-url }}",
+                      "title": "${{ inputs.button-text }}"
+                    }
+                  ]
+                }
+              }
+            }
+          }'
       shell: bash
