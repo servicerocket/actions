@@ -57,7 +57,7 @@ runs:
                       "default_action": {
                         "type": "web_url",
                         "url": "${{ inputs.action-url }}",
-                        "webview_height_ratio": "${{ inputs.webview_height_ratio }}",
+                        "webview_height_ratio": "${{ inputs.webview-height-ratio }}",
                       },
                       "buttons": [
                         {
