@@ -37,7 +37,7 @@ Messages sent use Facebook Messenger [Generic Template](https://developers.faceb
 
 ```yaml
 - name: Send Workchat notification to 12345678
-  uses: servicerocket/actions/send-workchat-notification@12209e7
+  uses: servicerocket/actions/send-workchat-notification@b7c2dff
   with:
     api-endpoint: ${{ secrets.WORKPLACE_PUBLISHER_API_ENDPOINT }}
     api-key: ${{ secrets.WORKPLACE_PUBLISHER_API_GATEWAY_KEY }}
