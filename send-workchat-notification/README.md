@@ -27,16 +27,17 @@ Messages sent use Facebook Messenger [Generic Template](https://developers.faceb
     button-url: 
     # Image URL
     image-url: #optional
-    # Image Aspect Ratio
-    image-aspect-ratio: #optional, either 'square' or 'horizontal', default is 'horizontal'
-    
+    # Action URL
+    action-url:
+    # Height of the Webview. Valid values: compact, tall, full. Default is 'full'.
+    webview-height-ratio: #optional
 ```
 
 ### Example
 
 ```yaml
 - name: Send Workchat notification to 12345678
-  uses: servicerocket/actions/send-workchat-notification@12209e7
+  uses: servicerocket/actions/send-workchat-notification@b7c2dff
   with:
     api-endpoint: ${{ secrets.WORKPLACE_PUBLISHER_API_ENDPOINT }}
     api-key: ${{ secrets.WORKPLACE_PUBLISHER_API_GATEWAY_KEY }}
@@ -44,4 +45,5 @@ Messages sent use Facebook Messenger [Generic Template](https://developers.faceb
     title: "Some important title"
     subtitle: "A nice subtitle"
     button-url: "https://link.example.com"
+    action-url: "https://link.example.com"
 ```

@@ -26,6 +26,12 @@ inputs:
   button-url:
     description: 'URL of the action button.'
     required: true
+  action-url:
+    description: 'URL of the default action link.'
+    required: true
+  webview-height-ratio:
+    description: 'Height of the Webview. Valid values: compact, tall, full. Defaults to full.'
+    default: 'full'
 runs:
   using: "composite"
   steps:
@@ -43,12 +49,16 @@ runs:
                 "type": "template",
                 "payload": {
                   "template_type": "generic",
-                  "image_aspect_ratio": "${{ inputs.image-aspect-ratio }}",
                   "elements": [
                     {
                       "title": "${{ inputs.title }}",
                       "subtitle": "${{ inputs.subtitle }}",
                       "image_url": "${{ inputs.image-url }}",
+                      "default_action": {
+                        "type": "web_url",
+                        "url": "${{ inputs.action-url }}",
+                        "webview_height_ratio": "${{ inputs.webview-height-ratio }}"
+                      },
                       "buttons": [
                         {
                           "type": "web_url",
